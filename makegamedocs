@@ -1,0 +1,214 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# $URL: svn+ssh://svnuser@klsh.org/home/svnuser/klsh_2011/fmt/scripts/makegamedocs $
+# $Id: makegamedocs 7 2011-07-21 09:02:25Z dennis $
+
+import sys
+
+import schedule
+
+game = 0
+
+try:
+    game = eval( sys.argv[1] )
+except:
+    print >> sys.stderr, 'Usage: makegamedocs <game_number>'
+    sys.exit(1)
+
+if game <= 0 or game > len( schedule.schedule ):
+    print >> sys.stderr, 'Game number out of range'
+    sys.exit(2)
+
+i = game - 1
+
+tf = open( 'protocol_template.tex' )
+tmpl = tf.read()
+tf.close()
+
+out = r'''% This is a generated file, do not edit
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=0.5cm,bottom=0.5cm,left=0.5cm,right=0.5cm]{geometry}
+
+\usepackage{graphicx}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\begin{document}
+
+\pagestyle{empty}
+'''
+
+out_results = r'''% This is a generated file, do not edit
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+
+\usepackage{graphicx}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[scale=1.4]{../../klshlogo.pdf} &
+\raisebox{2cm}{
+  \begin{tabular}{c}
+    {\huge\bf КРАСНОЯРСКАЯ}\\
+    \ \\
+    {\huge\bf ЛЕТНЯЯ ШКОЛА}
+    \ \\
+    \ \\
+    \ \\
+    {\Large Сезон '''
+out_results = out_results + ( '%d' % schedule.year )
+out_results = out_results + r'''  года}
+  \end{tabular}
+}
+\end{tabular}
+
+\ \\
+\ \\
+\ \\
+'''
+
+out_results = out_results + r'{\Large\bf Результаты ' + ( '%d' % game ) + r' тура ФМТ}' + '\n'
+out_results = out_results + r'''
+\ \\
+\ \\
+
+  {\large
+
+    \begin{tabular}{c|c}
+
+      {\bf Команды} & {\bf Счёт} \\
+
+      \hline
+'''
+
+out_rooms = r'''
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+
+\usepackage{graphicx}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[scale=1.38]{../../klshlogo.pdf} &
+\raisebox{2cm}{
+  \begin{tabular}{c}
+    {\huge\bf КРАСНОЯРСКАЯ}\\
+    \ \\
+    {\huge\bf ЛЕТНЯЯ ШКОЛА}
+    \ \\
+    \ \\
+    \ \\
+    {\Large Сезон '''
+out_rooms = out_rooms + ( '%d' % schedule.year )
+out_rooms = out_rooms + r'''  года}
+  \end{tabular}
+}
+\end{tabular}
+
+\ \\
+\ \\
+\ \\
+{\Large\bf Расписание встреч 
+'''
+
+out_rooms = out_rooms + ( '%d' % game ) + r' тура ФМТ}' + '\n'
+
+out_rooms = out_rooms + r'''
+\ \\
+\ \\
+'''
+
+out_rooms = out_rooms + r'{\Large ' + schedule.schedule[i][ 'DATE' ] + r'}' + '\n'
+
+out_rooms = out_rooms + r'''
+\ \\
+\ \\
+\ \\
+
+  {\Large
+
+    \begin{tabular}{c|c}
+
+      {\bf Команды} & {\bf Аудитория} \\
+
+      \hline
+'''
+
+tmpl = tmpl.replace( 'GAME', '%d' % game )
+tmpl = tmpl.replace( 'DATE', schedule.schedule[i][ 'DATE' ] )
+
+nmatches = len( schedule.schedule[i][ 'MATCHES' ] ) # should be 9
+
+for j in range( nmatches ):
+
+    match_out = tmpl
+
+    for k in [ 'ROOM', 'SENIORJUDGE', 'JUDGES', 'TEAM1', 'TEAM2' ]:
+        match_out = match_out.replace( k, schedule.schedule[i][ 'MATCHES' ][j][k] )
+    out = out + match_out
+
+    score1 = schedule.schedule[i][ 'MATCHES' ][j][ 'SCORE1' ]
+    score2 = schedule.schedule[i][ 'MATCHES' ][j][ 'SCORE2' ]
+    if score1 != None and score2 != None:
+        out_results = out_results + r'\hline' + '\n'
+        out_results = out_results + schedule.schedule[i][ 'MATCHES' ][j][ 'TEAM1' ] + r' -- '
+        out_results = out_results + schedule.schedule[i][ 'MATCHES' ][j][ 'TEAM2' ] + r' & '
+        out_results = out_results + ( '%d ' % score1 ) + r'--'
+        out_results = out_results + ( ' %d' % score2 ) + r'\\' +'\n'
+
+    out_rooms = out_rooms + r'\hline' + '\n'
+    out_rooms = out_rooms + schedule.schedule[i][ 'MATCHES' ][j][ 'TEAM1' ] + r' -- '
+    out_rooms = out_rooms + schedule.schedule[i][ 'MATCHES' ][j][ 'TEAM2' ] + r' & '
+    out_rooms = out_rooms + schedule.schedule[i][ 'MATCHES' ][j][ 'ROOM' ] + r'\\' +'\n'
+
+    if j < ( nmatches - 1 ):
+        out = out + r'\newpage'
+        out = out + '\n'
+
+out = out + r'\end{document}'
+out = out + '\n'
+
+out_results = out_results + r'''
+    \end{tabular}
+  }
+\end{center}
+\end{document}
+'''
+
+out_rooms = out_rooms + r'''
+\end{tabular}
+}
+\end{center}
+\end{document}
+'''
+
+out_f = open( 'protocols_%d.tex' % game, 'w' )
+out_f.write( out )
+out_f.close()
+
+out_f = open( 'results_%d.tex' % game, 'w' )
+out_f.write( out_results )
+out_f.close()
+
+out_f = open( 'rooms_%d.tex' % game, 'w' )
+out_f.write( out_rooms )
+out_f.close()

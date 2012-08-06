@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# $URL: svn+ssh://svnuser@klsh.org/home/svnuser/klsh_2011/fmt/scripts/mksvalkaproto $
+# $Id: mksvalkaproto 7 2011-07-21 09:02:25Z dennis $
+
+import schedule
+
+tf = open( 'svalka_protocol_template.tex' )
+tmpl = tf.read()
+tf.close()
+
+out = r'''% This is a generated file, do not edit
+\documentclass[10pt]{article}
+\usepackage[a4paper,top=0.2cm,bottom=0.2cm,left=1cm,right=1cm]{geometry}
+
+\usepackage{graphicx}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\begin{document}
+
+\pagestyle{empty}
+'''
+
+tmpl = tmpl.replace( 'DATE', schedule.svalka_date )
+
+for i in range( len( schedule.svalka ) ):
+
+  for j in range(4):
+  
+    team = schedule.svalka[i]
+
+    team_out = tmpl
+
+    for k in [ 'TEAM', 'JUDGE' ]:
+        team_out = team_out.replace( k, team[k] )
+
+    team_out = team_out.replace( 'PROBLEM', ( '%d' % ( j + 1 ) ) )
+
+    if j < 3:
+      team_out = team_out + r'\hrule height1pt' + '\n'
+
+    out = out + team_out
+
+  if i < len( schedule.svalka ) - 1:
+    out = out + r'\newpage'
+    out = out + '\n'
+    out = out + '\n'
+    out = out + '\n'
+
+out = out + r'\end{document}'
+out = out + '\n'
+
+out_f = open( 'svalka_protocols.tex', 'w' )
+out_f.write( out )
+out_f.close()

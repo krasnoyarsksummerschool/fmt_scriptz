@@ -1,0 +1,513 @@
+# -*- coding: utf-8 -*-
+
+# $URL: svn+ssh://svnuser@klsh.org/home/svnuser/klsh_2011/fmt/scripts/schedule.py $
+# $Id: schedule.py 12 2011-07-24 11:44:57Z dennis $
+
+################
+#### Судьи: ####
+################
+
+# Иван АДО alpha главный физика
+# Олег ЗОЛОТОВ главный физика
+# Иван КАРЛОВ rho главный физика
+# Владислав КОЗЛОВ theta главный физика
+# Сергей ЛАМЗИН $o$ главный физика
+# Виктория ЛУКОВСКАЯ главный
+# Михаил САДОВСКИЙ главный физика
+# Мария СЕГИНЁВА $\mu$ главный
+# Иван ХАРИТОНОВ delta главный физика
+# Денис ШПАКОВ $\sigma$ главный физика
+# Максим ЩЕРБАКОВ kappa главный физика
+# Анна ЯКОВЛЕВА alpha $\beta$ главный
+
+# Павел АВДЕЕНКО alpha физика
+# Никита АСТРАХАНЦЕВ xi физика
+# Наталья БЛЯНКИНШТЕЙН o физика
+# Евгений БУРОВСКИЙ физика
+# Юрий ВОПИЛОВ omega физика
+# Мариам ДАУТОВА theta
+# Борис ДЕМЕШЕВ
+# Вероника ИЛЬЯНЕНКО iota xi
+# Лев КАМИНСКИЙ phi
+# Ксения КЛОКОВА alpha
+# Александр МАКУШКИН varepsilon физика
+# Александр МЕНЩИКОВ lambda
+# Алексей МИРОНОВ sigma физика
+# Максим МУСИН iota
+# Евгений ОСТРОУХ omega физика
+# Кирилл ПАВЛЕНКО kappa физика
+# Мария ПРОХОЖАЕВА epsilon
+# Евгений САФРОНЕНКО tau
+# Иван СМОЛЯР phi физика
+# Александр СНЕТКОВ delta
+# Юлия СОПКОВА lambda phi
+# Дмитрий ЧЕРНОУС beta
+# Антон ШЕЙКИН mu физика
+# Елизавета ЯКИМЕНКО delta theta gamma
+
+year = 2011
+
+schedule = []
+
+#####################
+#### Первый тур: ####
+#####################
+
+game_1 = {
+
+    'DATE' : '19 июля 2011 года',
+
+    'MATCHES' : [
+    
+    { 'TEAM1' : r'$\omega$', 'TEAM2' : r'$\iota$', 'ROOM' : '2.2',
+      'SENIORJUDGE' : 'Денис ШПАКОВ', 'JUDGES' : 'Юлия СОПКОВА, Евгений БУРОВСКИЙ, Никита АСТРАХАНЦЕВ',
+      'SCORE1' : 0, 'SCORE2' : 2 },
+    
+    { 'TEAM1' : r'$\gamma$', 'TEAM2' : r'$\sigma$', 'ROOM' : '1.1',
+      'SENIORJUDGE' : 'Максим ЩЕРБАКОВ', 'JUDGES' : 'Лев КАМИНСКИЙ, Наталья БЛЯНКИНШТЕЙН, Евгений ОСТРОУХ',
+      'SCORE1' : 4, 'SCORE2' : 0 },
+    
+    { 'TEAM1' : r'$\chi$', 'TEAM2' : r'$\varphi$', 'ROOM' : '1.2',
+      'SENIORJUDGE' : 'Сергей ЛАМЗИН', 'JUDGES' : 'Мариам ДАУТОВА, Павел АВДЕЕНКО, Мария ПРОХОЖАЕВА',
+      'SCORE1' : 0, 'SCORE2' : 4 },
+    
+    { 'TEAM1' : r'$\kappa$', 'TEAM2' : r'$\mu$', 'ROOM' : '2.1',
+      'SENIORJUDGE' : 'Иван ХАРИТОНОВ', 'JUDGES' : 'Юрий ВОПИЛОВ, Ксения КЛОКОВА, Александр СНЕТКОВ',
+      'SCORE1' : 1, 'SCORE2' : 7 },
+    
+    { 'TEAM1' : r'$\xi$', 'TEAM2' : r'$\lambda$', 'ROOM' : '3.2',
+      'SENIORJUDGE' : 'Мария СЕГИНЁВА', 'JUDGES' : 'Борис ДЕМЕШЕВ, Кирилл ПАВЛЕНКО, Евгений САФРОНЕНКО',
+      'SCORE1' : 1, 'SCORE2' : 6 },
+    
+    { 'TEAM1' : r'$\varepsilon$', 'TEAM2' : r'$\theta$', 'ROOM' : 'ВК',
+      'SENIORJUDGE' : 'Анна ЯКОВЛЕВА', 'JUDGES' : 'Максим МУСИН, Антон ШЕЙКИН, Вероника ИЛЬЯНЕНКО',
+      'SCORE1' : 2, 'SCORE2' : 5 },
+    
+    { 'TEAM1' : r'$\delta$', 'TEAM2' : r'$\tau$', 'ROOM' : 'Биохим 5',
+      'SENIORJUDGE' : 'Иван АДО', 'JUDGES' : 'Иван КАРЛОВ, Алексей МИРОНОВ, Иван СМОЛЯР',
+      'SCORE1' : 0, 'SCORE2' : 6 },
+    
+    { 'TEAM1' : r'$\beta$', 'TEAM2' : r'$\rho$', 'ROOM' : 'Столовая',
+      'SENIORJUDGE' : 'Олег ЗОЛОТОВ', 'JUDGES' : 'Владислав КОЗЛОВ, Елизавета ЯКИМЕНКО',
+      'SCORE1' : 5, 'SCORE2' : 2 },
+    
+    { 'TEAM1' : r'$\alpha$', 'TEAM2' : r'$o$', 'ROOM' : 'Холл столовой',
+      'SENIORJUDGE' : 'Виктория ЛУКОВСКАЯ', 'JUDGES' : 'Александр МАКУШКИН, Александр МЕНЩИКОВ, Дмитрий ЧЕРНОУС',
+      'SCORE1' : 2, 'SCORE2' : 4 }
+
+    ]
+
+    }
+
+schedule.append( game_1 )
+
+game_2 = {
+
+    'DATE' : '21 июля 2011 года',
+
+    'MATCHES' : [
+    
+        { 'TEAM1' : r'$\tau$', 'TEAM2' : r'$\mu$',
+          'ROOM' : '1.1',
+          'SENIORJUDGE' : 'Михаил САДОВСКИЙ',
+          'JUDGES' : 'Юрий ВОПИЛОВ, Ксения КЛОКОВА, Никита АСТРАХАНЦЕВ',
+          'SCORE1' : 2, 'SCORE2' : 4 },
+    
+        { 'TEAM1' : r'$\lambda$', 'TEAM2' : r'$\gamma$',
+          'ROOM' : '1.2',
+          'SENIORJUDGE' : 'Максим ЩЕРБАКОВ',
+          'JUDGES' : 'Александр МАКУШКИН, Дмитрий ЧЕРНОУС, Вероника ИЛЬЯНЕНКО',
+          'SCORE1' : 0, 'SCORE2' : 6 },
+    
+        { 'TEAM1' : r'$\varphi$', 'TEAM2' : r'$\beta$',
+          'ROOM' : '2.1',
+          'SENIORJUDGE' : 'Виктория ЛУКОВСКАЯ',
+          'JUDGES' : 'Александр МЕНЩИКОВ, Павел АВДЕЕНКО, Александр СНЕТКОВ',
+          'SCORE1' : 3, 'SCORE2' : 6 },
+    
+        { 'TEAM1' : r'$\theta$', 'TEAM2' : r'$\iota$',
+          'ROOM' : '2.2',
+          'SENIORJUDGE' : 'Иван АДО',
+          'JUDGES' : 'Борис ДЕМЕШЕВ, Юлия СОПКОВА, Алексей МИРОНОВ',
+          'SCORE1' : 3, 'SCORE2' : 3 },
+    
+        { 'TEAM1' : r'$o$', 'TEAM2' : r'$\omega$',
+          'ROOM' : '3.2',
+          'SENIORJUDGE' : 'Олег ЗОЛОТОВ',
+          'JUDGES' : 'Лев КАМИНСКИЙ, Кирилл ПАВЛЕНКО, Евгений САФРОНЕНКО',
+          'SCORE1' : 6, 'SCORE2' : -2 },
+    
+        { 'TEAM1' : r'$\alpha$', 'TEAM2' : r'$\varepsilon$',
+          'ROOM' : 'Вечерний клуб',
+          'SENIORJUDGE' : 'Иван КАРЛОВ',
+          'JUDGES' : 'Максим МУСИН, Антон ШЕЙКИН, Наталья БЛЯНКИНШТЕЙН',
+          'SCORE1' : 0, 'SCORE2' : 2 },
+    
+        { 'TEAM1' : r'$\rho$', 'TEAM2' : r'$\chi$',
+          'ROOM' : 'Биохимлаба 5',
+          'SENIORJUDGE' : 'Иван ХАРИТОНОВ',
+          'JUDGES' : 'Мариам ДАУТОВА, Евгений БУРОВСКИЙ, Иван СМОЛЯР',
+          'SCORE1' : 3, 'SCORE2' : 2 },
+    
+        { 'TEAM1' : r'$\sigma$', 'TEAM2' : r'$\xi$',
+          'ROOM' : 'Беседка 1 (столовая если дождь)',
+          'SENIORJUDGE' : 'Владислав КОЗЛОВ',
+          'JUDGES' : 'Елизавета ЯКИМЕНКО, Евгений ОСТРОУХ',
+          'SCORE1' : 3, 'SCORE2' : 2 },
+    
+        { 'TEAM1' : r'$\kappa$', 'TEAM2' : r'$\delta$',
+          'ROOM' : 'Беседка 2 (холл столовой если дождь)',
+          'SENIORJUDGE' : 'Мария СЕГИНЁВА',
+          'JUDGES' : 'Сергей ЛАМЗИН, Мария ПРОХОЖАЕВА',
+          'SCORE1' : 2, 'SCORE2' : 8 }
+
+        ]
+        
+    }
+
+schedule.append( game_2 )
+
+game_3 = {
+
+    'DATE' : '25 июля 2011 года',
+
+    'MATCHES' : [
+    
+        { 'TEAM1' : r'$\lambda$', 'TEAM2' : r'$\varphi$',
+          'ROOM' : '1.1',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 0, 'SCORE2' : 5 },
+    
+        { 'TEAM1' : r'$\chi$', 'TEAM2' : r'$\omega$',
+          'ROOM' : '1.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 4, 'SCORE2' : 0 },
+    
+        { 'TEAM1' : r'$\tau$', 'TEAM2' : r'$\rho$',
+          'ROOM' : '2.1',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 3, 'SCORE2' : 4 },
+    
+        { 'TEAM1' : r'$\delta$', 'TEAM2' : r'$\xi$',
+          'ROOM' : '2.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 2, 'SCORE2' : 2 },
+    
+        { 'TEAM1' : r'$\iota$', 'TEAM2' : r'$\varepsilon$',
+          'ROOM' : '3.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 4, 'SCORE2' : 2 },
+    
+        { 'TEAM1' : r'$\mu$', 'TEAM2' : r'$o$',
+          'ROOM' : 'Вечерний клуб',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 5, 'SCORE2' : 3 },
+    
+        { 'TEAM1' : r'$\theta$', 'TEAM2' : r'$\sigma$',
+          'ROOM' : 'Биохимлаба 5',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 0, 'SCORE2' : 3 },
+    
+        { 'TEAM1' : r'$\alpha$', 'TEAM2' : r'$\kappa$',
+          'ROOM' : 'Беседка 1 (столовая если дождь)',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 0, 'SCORE2' : 4 },
+    
+        { 'TEAM1' : r'$\beta$', 'TEAM2' : r'$\gamma$',
+          'ROOM' : 'Беседка 2 (холл столовой если дождь)',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 2, 'SCORE2' : 5 }
+
+        ]
+
+    }
+
+schedule.append( game_3 )
+
+game_4 = {
+
+    'DATE' : '28 июля 2011 года',
+
+    'MATCHES' : [
+    
+        { 'TEAM1' : r'$\rho$', 'TEAM2' : r'$\iota$',
+          'ROOM' : '1.1',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 1, 'SCORE2' : 11 },
+    
+        { 'TEAM1' : r'$\mu$', 'TEAM2' : r'$\gamma$',
+          'ROOM' : '1.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 4, 'SCORE2' : 3 },
+    
+        { 'TEAM1' : r'$\kappa$', 'TEAM2' : r'$\xi$',
+          'ROOM' : '2.1',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 4, 'SCORE2' : 2 },
+    
+        { 'TEAM1' : r'$\varepsilon$', 'TEAM2' : r'$\lambda$',
+          'ROOM' : '2.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 1, 'SCORE2' : 0 },
+    
+        { 'TEAM1' : r'$\delta$', 'TEAM2' : r'$\theta$',
+          'ROOM' : '3.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 2, 'SCORE2' : 2 },
+    
+        { 'TEAM1' : r'$o$', 'TEAM2' : r'$\beta$',
+          'ROOM' : 'Вечерний клуб',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 0, 'SCORE2' : 6 },
+    
+        { 'TEAM1' : r'$\omega$', 'TEAM2' : r'$\alpha$',
+          'ROOM' : 'Биохимлаба 5',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 2, 'SCORE2' : 5 },
+    
+        { 'TEAM1' : r'$\sigma$', 'TEAM2' : r'$\varphi$',
+          'ROOM' : 'Беседка 1 (столовая если дождь)',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 2, 'SCORE2' : 5 },
+    
+        { 'TEAM1' : r'$\tau$', 'TEAM2' : r'$\chi$',
+          'ROOM' : 'Беседка 2 (холл столовой если дождь)',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 1, 'SCORE2' : 1 }
+
+        ]
+
+    }
+
+schedule.append( game_4 )
+
+game_5 = {
+
+    'DATE' : '1 августа 2011 года',
+
+    'MATCHES' : [
+    
+        { 'TEAM1' : r'$\varphi$', 'TEAM2' : r'$\gamma$',
+          'ROOM' : '1.1',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 4, 'SCORE2' : 2 },
+    
+        { 'TEAM1' : r'$\rho$', 'TEAM2' : r'$\theta$',
+          'ROOM' : '1.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : -2, 'SCORE2' : 2 },
+    
+        { 'TEAM1' : r'$\kappa$', 'TEAM2' : r'$\sigma$',
+          'ROOM' : '2.1',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 4, 'SCORE2' : 4 },
+    
+        { 'TEAM1' : r'$\omega$', 'TEAM2' : r'$\xi$',
+          'ROOM' : '2.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 0, 'SCORE2' : 5 },
+    
+        { 'TEAM1' : r'$o$', 'TEAM2' : r'$\delta$',
+          'ROOM' : '3.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 3, 'SCORE2' : 3 },
+    
+        { 'TEAM1' : r'$\chi$', 'TEAM2' : r'$\lambda$',
+          'ROOM' : 'Вечерний клуб',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 2, 'SCORE2' : -2 },
+    
+        { 'TEAM1' : r'$\beta$', 'TEAM2' : r'$\varepsilon$',
+          'ROOM' : 'Биохимлаба 5',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 6, 'SCORE2' : -2 },
+    
+        { 'TEAM1' : r'$\alpha$', 'TEAM2' : r'$\tau$',
+          'ROOM' : 'Беседка 1 (столовая если дождь)',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 1, 'SCORE2' : 7 },
+    
+        { 'TEAM1' : r'$\mu$', 'TEAM2' : r'$\iota$',
+          'ROOM' : 'Беседка 2 (холл столовой если дождь)',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 8, 'SCORE2' : 0 }
+
+        ]
+
+    }
+
+schedule.append( game_5 )
+
+game_6 = {
+
+    'DATE' : '4 августа 2011 года',
+
+    'MATCHES' : [
+    
+        { 'TEAM1' : r'$\mu$', 'TEAM2' : r'$\varphi$',
+          'ROOM' : '1.1',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 2, 'SCORE2' : 2 },
+    
+        { 'TEAM1' : r'$\beta$', 'TEAM2' : r'$\iota$',
+          'ROOM' : '1.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 3, 'SCORE2' : 1 },
+    
+        { 'TEAM1' : r'$\gamma$', 'TEAM2' : r'$\theta$',
+          'ROOM' : '2.1',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 2, 'SCORE2' : 1 },
+    
+        { 'TEAM1' : r'$\delta$', 'TEAM2' : r'$\sigma$',
+          'ROOM' : '2.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 5, 'SCORE2' : -2 },
+    
+        { 'TEAM1' : r'$\tau$', 'TEAM2' : r'$\kappa$',
+          'ROOM' : '3.2',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 4, 'SCORE2' : 1 },
+    
+        { 'TEAM1' : r'$o$', 'TEAM2' : r'$\varepsilon$',
+          'ROOM' : 'Вечерний клуб',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 4, 'SCORE2' : 3 },
+    
+        { 'TEAM1' : r'$\alpha$', 'TEAM2' : r'$\lambda$',
+          'ROOM' : 'Биохимлаба 5',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 0, 'SCORE2' : 3 },
+    
+        { 'TEAM1' : r'$\xi$', 'TEAM2' : r'$\chi$',
+          'ROOM' : 'Беседка 1 (столовая если дождь)',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 1, 'SCORE2' : -2 },
+    
+        { 'TEAM1' : r'$\omega$', 'TEAM2' : r'$\rho$',
+          'ROOM' : 'Беседка 2 (холл столовой если дождь)',
+          'SENIORJUDGE' : '',
+          'JUDGES' : '',
+          'SCORE1' : 0, 'SCORE2' : 1 }
+
+        ]
+
+    }
+
+schedule.append( game_6 )
+
+#################
+#### Свалка: ####
+#################
+
+svalka_date = '5 августа 2011 года'
+
+svalka = [
+
+    { 'TEAM' : r'$\alpha$',
+      'JUDGE' : 'Наталья Блянкинштейн',
+      'SCORES' : [ ( 688, 2 ), ( 488, 2 ), ( 1131, 0 ), ( 185, 0 ) ] },
+
+    { 'TEAM' : r'$\beta$',
+      'JUDGE' : 'Никита Астраханцев',
+      'SCORES' : [ ( 109, 2 ), ( 35, 2 ), ( 590, 2 ), ( 615, 2 ) ] },
+
+    { 'TEAM' : r'$\gamma$',
+      'JUDGE' : 'Мария Сегинева',
+      'SCORES' : [ ( 430, 2 ), ( 54, 2 ), ( 202, 2 ), ( 128, 2 ) ] },
+
+    { 'TEAM' : r'$\delta$',
+      'JUDGE' : 'Влад Козлов',
+      'SCORES' : [ ( 1112, 2 ), ( 120, 0 ), ( 388, 0 ), ( 504, 0 ) ] },
+
+    { 'TEAM' : r'$\varepsilon$',
+      'JUDGE' : 'Павел Павленко',
+      'SCORES' : [ ( 352, 0 ), ( 1172, 2 ), ( 790, 0 ), ( 158, 0 ) ] },
+
+    { 'TEAM' : r'$\theta$',
+      'JUDGE' : 'Иван Адо',
+      'SCORES' : [ ( 639, 0 ), ( 1019, 2 ), ( 1116, 0 ), ( 857, 2 ) ] },
+
+    { 'TEAM' : r'$\iota$',
+      'JUDGE' : 'Александр Макушкин',
+      'SCORES' : [ ( 553, 2 ), ( 125, 2 ), ( 290, 0 ), ( 1099, 2 ) ] },
+
+    { 'TEAM' : r'$\kappa$',
+      'JUDGE' : 'Александр Менщиков',
+      'SCORES' : [ ( 554, 2 ), ( 200, 2 ), ( 1164, 0 ), ( 1150, 2 ) ] },
+
+    { 'TEAM' : r'$\lambda$',
+      'JUDGE' : 'Антон Шейкин',
+      'SCORES' : [ ( 1017, 2 ), ( 169, 0 ), ( 870, 0 ), ( None, 0 ) ] },
+
+    { 'TEAM' : r'$\mu$',
+      'JUDGE' : 'Елизавета Якименко',
+      'SCORES' : [ ( 32, 0 ), ( 43, 2 ), ( 163, 2 ), ( 700, 2 ) ] },
+
+    { 'TEAM' : r'$\xi$',
+      'JUDGE' : 'Юрий Вопилов',
+      'SCORES' : [ ( 928, 1 ), ( 194, 2 ), ( 660, 0 ), ( 1159, 0 ) ] },
+
+    { 'TEAM' : r'$o$',
+      'JUDGE' : 'Ксения Клокова',
+      'SCORES' : [ ( 850, 2 ), ( 493, 2 ), ( 1025, 0 ), ( 1170, 2 ) ] },
+
+    { 'TEAM' : r'$\chi$',
+      'JUDGE' : 'Александр Снетков',
+      'SCORES' : [ ( 553, 2 ), ( 892, 2 ), ( None, 0 ), ( None, 0 ) ] },
+
+    { 'TEAM' : r'$\rho$',
+      'JUDGE' : 'Максим Мусин',
+      'SCORES' : [ ( 1182, 1 ), ( 78, 0 ), ( None, 0 ), ( None, 0 ) ] },
+
+    { 'TEAM' : r'$\sigma$',
+      'JUDGE' : 'Лев Каминский',
+      'SCORES' : [ ( 340, 0 ), ( 350, 2 ), ( 450, 0 ), ( 246, 2 ) ] },
+
+    { 'TEAM' : r'$\tau$',
+      'JUDGE' : 'Вероника Ильяненко',
+      'SCORES' : [ ( 309, 2 ), ( 450, 2 ), ( 300, 0 ), ( 270, 0 ) ] },
+
+    { 'TEAM' : r'$\varphi$',
+      'JUDGE' : 'Мариам Даутова',
+      'SCORES' : [ ( 500, 2 ), ( 90, 2 ), ( 200, 0 ), ( 1100, 2 ) ] },
+
+    { 'TEAM' : r'$\omega$',
+      'JUDGE' : 'Иван Харитонов',
+      'SCORES' : [ ( 208, 2 ), ( 464, 2 ), ( 660, 2 ), ( 392, 2 ) ] }
+]

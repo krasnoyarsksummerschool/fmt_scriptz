@@ -1,0 +1,336 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# $URL: svn+ssh://svnuser@klsh.org/home/svnuser/klsh_2011/fmt/scripts/final_ordered_list $
+# $Id: final_ordered_list 7 2011-07-21 09:02:25Z dennis $
+
+import schedule
+
+#################################################################
+#### Define team rank as number of teams with smaller score: ####
+#################################################################
+
+def rankmap( scoremap ):
+
+    #print "starting rankmap"
+    result = {}
+
+    #print "scoremap: ", scoremap
+
+    for k in scoremap.keys():
+
+        result[k] = 0
+
+        for ok in scoremap.keys():
+            if k != ok and scoremap[k] > scoremap[ ok ]:
+                result[k] = result[k] + 1
+
+    #print "result: ",result
+
+    #print "finishing rankmap"
+    return result
+
+
+
+##########################
+#### Main Tournament: ####
+##########################
+
+scoremap_main = {}
+
+#print "Elements in schedule (number of games)", len(schedule.schedule)
+
+scoremap = {}
+for game in schedule.schedule:
+
+    #print "game"
+	
+    #scoremap = {}
+
+    for match in game[ 'MATCHES' ]:
+
+        t1 = match[ 'TEAM1' ]
+        t2 = match[ 'TEAM2' ]
+        s1 = match[ 'SCORE1' ]
+        s2 = match[ 'SCORE2' ]
+
+        if s1 != None and s2 != None:
+
+            r1 = s1 - s2
+            r2 = -r1
+
+            if scoremap.has_key( t1 ):
+                scoremap[ t1 ] = scoremap[ t1 ] + r1
+            else:
+                scoremap[ t1 ] = r1
+
+            if scoremap.has_key( t2 ):
+                scoremap[ t2 ] = scoremap[ t2 ] + r2
+            else:
+                scoremap[ t2 ] = r2
+	    #print "match ", match	
+
+    """
+    print "scoremap: ", scoremap
+    rm = rankmap( scoremap )
+
+    print "rm: ", rm
+	
+    for k in rm.keys():
+        if scoremap_main.has_key(k):
+            scoremap_main[k] = scoremap_main[k] + rm[k]
+        else:
+            scoremap_main[k] = rm[k]
+    """
+
+#print "scoremap: ", scoremap
+rm = rankmap( scoremap )
+
+#print "rm: ", rm
+
+for k in rm.keys():
+    if scoremap_main.has_key(k):
+        scoremap_main[k] = scoremap_main[k] + rm[k]
+    else:
+        scoremap_main[k] = rm[k]
+
+rmap_main = rankmap( scoremap_main )
+
+#print "scoremap_main"
+#print scoremap_main
+
+#print "rmap_main"
+#print rmap_main
+
+#################
+#### Свалка: ####
+#################
+
+svalka_scoremap = {}
+
+svalka_scores = {}
+
+for t in schedule.svalka:
+
+    svalka_scores[ t[ 'TEAM' ] ] = t[ 'SCORES' ]
+
+    svalka_scoremap[ t[ 'TEAM' ] ] = 0
+
+    for p in range(4):
+
+        if t[ 'SCORES' ][p][0] != None:
+
+            nworse = 0
+
+            for ot in schedule.svalka:
+
+                if t[ 'TEAM' ] != ot[ 'TEAM' ]:
+
+                    if( t[ 'SCORES' ][p][1] > ot[ 'SCORES' ][p][1] or
+                        ( t[ 'SCORES' ][p][1] == ot[ 'SCORES' ][p][1] and
+                          t[ 'SCORES' ][p][0] < ot[ 'SCORES' ][p][0] ) ):
+                        nworse = nworse + 1
+
+            svalka_scoremap[ t[ 'TEAM' ] ] = svalka_scoremap[ t[ 'TEAM' ] ] + nworse
+
+rmap_svalka = rankmap( svalka_scoremap )
+
+####################
+#### Team Rank: ####
+####################
+
+class TeamRank:
+
+    def __lt__( self, other ):
+        srank = self.mainrank + self.svalkarank
+        orank = other.mainrank + other.svalkarank
+        if srank != orank:
+            return srank < orank
+        return self.mainrank < other.mainrank
+
+    def __repr__( self ):
+        return '%s: основной тур -- %d, свалка -- %d, общий -- %d' % ( schedule.latex2greek[ self.team ],
+                                                                       self.mainrank,
+                                                                       self.svalkarank,
+                                                                       self.mainrank + self.svalkarank )
+
+##########################
+#### Final Rank List: ####
+##########################
+
+ranklist = []
+
+for k in rmap_main.keys():
+    tr = TeamRank()
+    tr.mainrank = rmap_main[k]
+    tr.svalkarank = rmap_svalka[k]
+    tr.team = k
+    ranklist.append( tr )
+
+ranklist.sort()
+ranklist.reverse()
+
+for tr in ranklist:
+    print tr
+
+######################
+#### HTML Output: ####
+######################
+
+html_out = '''
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="PRAGMA" content = "no-cache" >
+    <meta http-equiv="Refresh" content = "1;url=results_after_svalka.html" >
+  </head>
+  <body>
+'''
+
+html_out = html_out + '<p align="center"><table><tr>\n'
+html_out = html_out + '<td><img src="klshlogo.png" '
+html_out = html_out + 'height="150" width="150" alt="логотип КЛШ" /></td>\n'
+
+html_out = html_out + '<td><table>\n'
+html_out = html_out + '<tr align="center"><td><font color="#0066FF" size="10px">КРАСНОЯРСКАЯ ЛЕТНЯЯ ШКОЛА</font></td></tr>\n'
+html_out = html_out + '<tr align="center"><td><font color="#0066FF" size="8px">Сезон 2012 года</font></td></tr>\n'
+html_out = html_out + '<tr align="center"><td><p align="center"><font color="#0066FF" size="9px">ТЕКУЩИЕ РЕЗУЛЬТАТЫ ФМТ</font></p></td></tr>\n'
+html_out = html_out + '</table></td>\n'
+
+html_out = html_out + '</tr></table></p>\n'
+
+html_out = html_out + '\n'
+
+html_out = html_out + '<p align="center"><font size="+2"><table cellpadding="5" cellspacing="5">'
+html_out = html_out + '<tr align="center">'
+html_out = html_out + '<th>Команда:</th>'
+html_out = html_out + '<th>Рейтинг в основном туре:</th>'
+html_out = html_out + '<th>Задача 1 свалки:</th>'
+html_out = html_out + '<th>Задача 2 свалки:</th>'
+html_out = html_out + '<th>Задача 3 свалки:</th>'
+html_out = html_out + '<th>Задача 4 свалки:</th>'
+html_out = html_out + '<th>Текущий рейтинг в свалке:</th>'
+html_out = html_out + '<th>Общий рейтинг:</th></tr>\n'
+
+for tr in ranklist:
+    html_out = html_out + '<tr align="center">'
+    html_out = html_out + '<td>' + schedule.latex2greek[ tr.team ] + '</td>'
+    html_out = html_out + ( '<td>%d</td>' % tr.mainrank )
+    scores = svalka_scores[ tr.team ]
+    for s in scores:
+        res = ' '
+        if s[0] is None:
+            res = '<font color="#808000">-</font>'
+        elif s[1] == 0:
+            res = '<font color="#008000"><b>0</b></font>'
+        elif s[1] == 1:
+            res = '<font color="#00C000"><b>1</b></font>'
+        elif s[1] == 2:
+            res = '<font color="#FF0000"><b>2</b></font>'
+        html_out = html_out + '<td>' + res + '</td>'
+    html_out = html_out + ( '<td>%d</td>' % tr.svalkarank )
+    html_out = html_out + ( '<td>%d</td>' % ( tr.mainrank + tr.svalkarank ) )
+    html_out = html_out + '</tr>\n'
+
+html_out = html_out + '</table></font></p>\n'
+
+html_out = html_out + '''
+  </body>
+</html>
+'''
+
+html_out_f = open( 'results_after_svalka.html', 'w' )
+html_out_f.write( html_out )
+html_out_f.close()
+
+#######################
+#### LaTeX Output: ####
+#######################
+
+out = r'''% This is a generated file, do not edit
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=1cm,bottom=1cm]{geometry}
+
+\usepackage{graphicx}
+\usepackage{color}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\begin{center}
+\begin{tabular}{cc}
+\includegraphics[scale=0.48]{../klshlogo.pdf} &
+\raisebox{0.5cm}{
+  \begin{tabular}{c}
+    {\Large\bf КРАСНОЯРСКАЯ ЛЕТНЯЯ ШКОЛА}\\
+    \ \\
+    {\large\bf Сезон 2010 года}\\
+   \end{tabular}
+}
+\end{tabular}
+\ \\
+\ \\
+\ \\
+{\Large\bf Результаты физико--математического турнира}
+\ \\
+\end{center}
+
+Команды расположены в таблице в порядке убывания итогового рейтинга. 
+{\em Рейтингом} команды называется количество команд, выступивших
+менее успешно. Итоговый рейтинг есть сумма рейтингов в основном туре и
+свалке. В случае, когда две команды имеют одинаковую сумму рейтингов в
+основном туре и свалке, более успешной считается команда, чей рейтинг
+в основном туре выше.
+
+Команды, занимающие \textcolor{red}{первое и второе место} в итоговом
+рейтинге, встречаются в суперфинале за абсолютное первое
+место. Команды, занимающие \textcolor{green}{третье и четвёртое
+место}, встречаются за абсолютное третье место.
+
+\vspace*{1cm}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+
+      \hline
+      {\bf Команда} & {\bf Основной тур} &
+      {\bf Финальная свалка} & {\bf Итоговый рейтинг} \\
+
+      \hline
+      \hline
+'''
+
+place = 0
+for tr in ranklist:
+    color = 'black'
+    if place < 2:
+        color = 'red'
+    elif place < 4:
+        color = 'green'
+    out = out + r'\textcolor{' + color + r'}{' + tr.team + r'} & ' + '\n'
+    out = out + r'\textcolor{' + color + r'}{' + ( '%d' % tr.mainrank ) + r'} & ' + '\n'
+    out = out + r'\textcolor{' + color + r'}{' + ( '%d' % tr.svalkarank ) + r'} & ' + '\n'
+    out = out + r'\textcolor{' + color + r'}{' + ( '%d' % ( tr.mainrank + tr.svalkarank ) )
+    out = out + r'} \\ ' + '\n'
+    out = out + r'\hline' + '\n'
+    place = place + 1
+
+out = out + r'\hline' + '\n'
+
+out = out + r'''
+    \end{tabular}
+
+  \end{center}
+
+\end{document}
+'''
+
+out_f = open( 'results_after_svalka.tex', 'w' )
+out_f.write( out )
+out_f.close()

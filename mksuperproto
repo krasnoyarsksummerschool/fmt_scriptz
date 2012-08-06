@@ -1,0 +1,54 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# $URL: svn+ssh://svnuser@klsh.org/home/svnuser/klsh_2011/fmt/scripts/mksuperproto $
+# $Id: mksuperproto 7 2011-07-21 09:02:25Z dennis $
+
+import sys
+
+import schedule
+
+tf = open( 'protocol_template.tex' )
+tmpl = tf.read()
+tf.close()
+
+out = r'''% This is a generated file, do not edit
+\documentclass[12pt]{article}
+\usepackage[a4paper,top=0.5cm,bottom=0.5cm,left=1cm,right=1cm]{geometry}
+
+\usepackage{graphicx}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+
+\begin{document}
+
+\pagestyle{empty}
+'''
+
+tmpl = tmpl.replace( 'DATE', schedule.superfinal[ 'DATE' ] )
+
+matches = [ '12', '34' ]
+match_names = [ 'Суперфинал, игра за первое и второе место',
+                'Суперфинал, игра за третье и четвёртое место' ]
+
+for j in range(2):
+
+    match_out = tmpl
+    match_out = match_out.replace( 'GAME', match_names[j] )
+
+    for k in [ 'ROOM', 'SENIORJUDGE', 'JUDGES', 'TEAM1', 'TEAM2' ]:
+        match_out = match_out.replace( k, schedule.superfinal[ matches[j] ][k] )
+    out = out + match_out
+
+    if j < 1:
+        out = out + r'\newpage'
+        out = out + '\n'
+
+out = out + r'\end{document}'
+out = out + '\n'
+
+out_f = open( 'protocols_super.tex', 'w' )
+out_f.write( out )
+out_f.close()
